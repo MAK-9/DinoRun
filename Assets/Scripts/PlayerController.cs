@@ -50,6 +50,7 @@ public class PlayerController : MonoBehaviour
             collider2D.bounds.extents.y + extraHeightText,
             groundLayerMask);
 
+        /*
         Color rayColor;
         if (raycastHit.collider != null)
         {
@@ -61,6 +62,15 @@ public class PlayerController : MonoBehaviour
         Debug.Log(raycastHit);
         Debug.DrawRay(collider2D.bounds.center,Vector2.down * 
                                                   (collider2D.bounds.extents.y + extraHeightText),rayColor);
+        */
         return raycastHit.collider != null;
     }
+
+    void Die()
+    {
+        Debug.Log("Game Over!");
+        //Time.timeScale = 0f;
+    }
+
+    
 }
