@@ -10,26 +10,30 @@ using Vector3 = UnityEngine.Vector3;
 public class TileManager : MonoBehaviour
 {
     public GameObject[] tilePrefabs;
+    public GameObject[] bottomTilePrefabs;
     public GameObject[] deadlyObstaclePrefabs;
 
     private Transform playerTransform;
 
+    private List<GameObject> activeBottomTiles = new List<GameObject>();
     private List<GameObject> activeTiles = new List<GameObject>();
     private List<GameObject> activeDeadlyObstacles = new List<GameObject>();
 
     enum PrefabType
     {
         GROUND,
-        DEADLY
+        DEADLY,
+        BOTTOM
     };
     
     private float spawnX = -10f;
     private float safeZone = 12f;
     private float tileLength;
     private float tileHeight;
-    private float cactusChance = 10f;
+    private float cactusChance = 20f;
     
     private int amnTilesOnScreen = 15;
+    private int depth = 5;
 
     private void Start()
     {
@@ -52,12 +56,15 @@ public class TileManager : MonoBehaviour
         //this method spawns ground tiles and has a chance to spawn a deadly obstacle
         int deadlyObstacleChance;
         deadlyObstacleChance = Random.Range(0, 100);
-        
+
         GameObject tileObject;
         tileObject = Instantiate(tilePrefabs[RandomPrefabIndex()]) as GameObject;
         tileObject.transform.SetParent(transform);
 
         tileObject.transform.position = Vector2.right * spawnX;
+        
+        SpawnBottomTiles();
+        
         spawnX += tileLength;
 
         activeTiles.Add(tileObject);
@@ -67,6 +74,18 @@ public class TileManager : MonoBehaviour
             SpawnDeadlyObstacle(tileObject.transform.position);
         }
         
+    }
+    void SpawnBottomTiles()
+    {
+        for (int i = 1; i <= depth; i++)
+        {
+            GameObject bottomTileObject;
+            bottomTileObject = Instantiate(bottomTilePrefabs[RandomPrefabIndex(PrefabType.BOTTOM)]) as GameObject;
+            bottomTileObject.transform.SetParent(transform);
+
+            bottomTileObject.transform.position = new Vector2(spawnX, -tileHeight * 2 * i);
+            activeBottomTiles.Add(bottomTileObject);   
+        }
     }
     void SpawnDeadlyObstacle(Vector3 groundPosition)
     {
@@ -84,6 +103,12 @@ public class TileManager : MonoBehaviour
     {
         Destroy(activeTiles[0]);
         activeTiles.RemoveAt(0);
+
+        for (int i = 0; i < depth; i++)
+        {
+            Destroy(activeBottomTiles[0]);
+            activeBottomTiles.RemoveAt(0);   
+        }
     }
     void DeleteObstacle()
     {
@@ -103,7 +128,9 @@ public class TileManager : MonoBehaviour
             case PrefabType.DEADLY:
                 randomNumber = Random.Range(0, deadlyObstaclePrefabs.Length);
                 break;
-                
+            case PrefabType.BOTTOM:
+                randomNumber = Random.Range(0, bottomTilePrefabs.Length);
+                break;
         }
 
         return randomNumber;

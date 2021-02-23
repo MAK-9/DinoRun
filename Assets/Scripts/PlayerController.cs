@@ -66,11 +66,9 @@ public class PlayerController : MonoBehaviour
         return raycastHit.collider != null;
     }
 
-    void Die()
+    public void Die()
     {
         Debug.Log("Game Over!");
         //Time.timeScale = 0f;
     }
-
-    
 }

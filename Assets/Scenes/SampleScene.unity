@@ -295,6 +295,9 @@ MonoBehaviour:
   tilePrefabs:
   - {fileID: 5802957080250781150, guid: 4b974108e89124d4480672e7e622130e, type: 3}
   - {fileID: 5802957080250781150, guid: 9909bd309deaac34a94142ea867f4e23, type: 3}
+  bottomTilePrefabs:
+  - {fileID: 5583100242572773553, guid: 3d5015c5e5011e6468dbd22851554960, type: 3}
+  - {fileID: 5822521377078973442, guid: 031c0b68ba4fe37458ade19594b61d03, type: 3}
   deadlyObstaclePrefabs:
   - {fileID: 1072086769268618011, guid: 4cb34ee9305a2a24394ef3c36a911b7d, type: 3}
   - {fileID: 1072086769268618011, guid: 941c4ef28dc97074fab4f3ec29615150, type: 3}
@@ -430,10 +433,10 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
+  m_Mass: 5
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 2
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
@@ -454,8 +457,8 @@ MonoBehaviour:
   groundLayerMask:
     serializedVersion: 2
     m_Bits: 64
-  speed: 100
-  jumpStrength: 5
+  speed: 200
+  jumpStrength: 10
 --- !u!58 &1938841763
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -469,6 +472,6 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -0.00039381982, y: 0.003741324}
   serializedVersion: 2
-  m_Radius: 0.08
+  m_Radius: 0.07980309
