@@ -244,6 +244,9 @@ MonoBehaviour:
   deadlyObstaclePrefabs:
   - {fileID: 1072086769268618011, guid: 4cb34ee9305a2a24394ef3c36a911b7d, type: 3}
   - {fileID: 1072086769268618011, guid: 941c4ef28dc97074fab4f3ec29615150, type: 3}
+  cloudPrefabs:
+  - {fileID: 420643058466936477, guid: f2b7c5f99709ccc45b0c248f3fb1c02d, type: 3}
+  - {fileID: 7285089723904234448, guid: aee6dc3272803c740b0bd8974c454efc, type: 3}
 --- !u!4 &1352433241
 Transform:
   m_ObjectHideFlags: 0

@@ -12,6 +12,7 @@ public class TileManager : MonoBehaviour
     public GameObject[] tilePrefabs;
     public GameObject[] bottomTilePrefabs;
     public GameObject[] deadlyObstaclePrefabs;
+    public GameObject[] cloudPrefabs;
 
     private Transform playerTransform;
 
@@ -23,7 +24,8 @@ public class TileManager : MonoBehaviour
     {
         GROUND,
         DEADLY,
-        BOTTOM
+        BOTTOM,
+        CLOUD
     };
     
     private float spawnX = -10f;
@@ -89,14 +91,17 @@ public class TileManager : MonoBehaviour
     }
     void SpawnDeadlyObstacle(Vector3 groundPosition)
     {
-        GameObject obstacleObject;
-        obstacleObject = Instantiate(deadlyObstaclePrefabs[RandomPrefabIndex(PrefabType.DEADLY)]) as GameObject;
-        obstacleObject.transform.SetParent(transform);
+        if (playerTransform.position.x > 15f)
+        {
+            GameObject obstacleObject;
+            obstacleObject = Instantiate(deadlyObstaclePrefabs[RandomPrefabIndex(PrefabType.DEADLY)]) as GameObject;
+            obstacleObject.transform.SetParent(transform);
         
-        obstacleObject.transform.position = new Vector2(groundPosition.x,
-            groundPosition.y + tileHeight);
+            obstacleObject.transform.position = new Vector2(groundPosition.x,
+                groundPosition.y + tileHeight);
 
-        activeDeadlyObstacles.Add(obstacleObject);
+            activeDeadlyObstacles.Add(obstacleObject);
+        }
     }
 
     void DeleteTile()
@@ -130,6 +135,9 @@ public class TileManager : MonoBehaviour
                 break;
             case PrefabType.BOTTOM:
                 randomNumber = Random.Range(0, bottomTilePrefabs.Length);
+                break;
+            case PrefabType.CLOUD:
+                randomNumber = Random.Range(0, cloudPrefabs.Length);
                 break;
         }
 
