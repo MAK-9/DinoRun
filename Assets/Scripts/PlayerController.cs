@@ -1,21 +1,33 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Debug = UnityEngine.Debug;
 
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] private LayerMask groundLayerMask;
     public float speed = 100f;
+    private float dashDuration = 0.5f;
+    private float dashStrength = 150f;
     private float horizontalMove=0f;
     public float jumpStrength = 10f;
 
+    private float dashCooldown = 5f;
+
     private bool dead = false;
+    private bool dashReady = true;
     
     private Rigidbody2D rb;
-    private CircleCollider2D collider2D;
+    private new CircleCollider2D collider2D;
     private Animator animator;
+
+    enum AbilityType
+    {
+        DASH
+    };
     
     
     // Start is called before the first frame update
@@ -32,9 +44,14 @@ public class PlayerController : MonoBehaviour
         horizontalMove = Input.GetAxisRaw("Horizontal");
         
         //jump
-        if (Input.GetKeyDown(KeyCode.Space) && IsGrounded() && !dead)
+        if ((Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.Space)) && IsGrounded() && !dead)
         {
             Jump();
+        }
+        //dash
+        if (Input.GetKeyDown(KeyCode.RightArrow) && dashReady)
+        {
+            StartCoroutine(Dash());
         }
 
         if (Input.GetKeyDown(KeyCode.R))
@@ -83,6 +100,26 @@ public class PlayerController : MonoBehaviour
     {
         float verticalMove = jumpStrength;
         rb.velocity = Vector2.up * verticalMove;
+    }
+
+    IEnumerator Dash()
+    {
+        speed += dashStrength;
+        dashReady = false;
+        yield return new WaitForSeconds(dashDuration);
+        speed -= dashStrength;
+        StartCoroutine(AbilityCooldown(AbilityType.DASH));
+    }
+
+    IEnumerator AbilityCooldown(AbilityType type = AbilityType.DASH)
+    {
+        switch (type)
+        {
+            case AbilityType.DASH:
+                yield return new WaitForSeconds(dashCooldown);
+                dashReady = true;
+                break;
+        }
     }
 
     public void Die()

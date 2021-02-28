@@ -45,7 +45,6 @@ public class TileManager : MonoBehaviour
     
     private float cloudLowerMargin = 2f;
     private float cloudUpperMargin = 7.7f;
-    private float cameraOffset = 10f;
     private float pteroSpeed = 5f;
 
     private int amnTilesOnScreen = 15;
