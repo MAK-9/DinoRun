@@ -437,6 +437,8 @@ MonoBehaviour:
   cloudPrefabs:
   - {fileID: 420643058466936477, guid: f2b7c5f99709ccc45b0c248f3fb1c02d, type: 3}
   - {fileID: 7285089723904234448, guid: aee6dc3272803c740b0bd8974c454efc, type: 3}
+  pterodactylPrefabs:
+  - {fileID: 3161718256623372014, guid: 025df3583b74d79458c929e43b1a0f79, type: 3}
 --- !u!4 &1352433241
 Transform:
   m_ObjectHideFlags: 0

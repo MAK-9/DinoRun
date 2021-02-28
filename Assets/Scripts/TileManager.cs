@@ -13,6 +13,7 @@ public class TileManager : MonoBehaviour
     public GameObject[] bottomTilePrefabs;
     public GameObject[] deadlyObstaclePrefabs;
     public GameObject[] cloudPrefabs;
+    public GameObject[] pterodactylPrefabs;
 
     private Transform cameraTransform;
 
@@ -20,13 +21,15 @@ public class TileManager : MonoBehaviour
     private List<GameObject> activeTiles = new List<GameObject>();
     private List<GameObject> activeDeadlyObstacles = new List<GameObject>();
     private List<GameObject> activeClouds = new List<GameObject>();
+    private List<GameObject> activePterodactyls = new List<GameObject>();
 
     enum PrefabType
     {
         GROUND,
         DEADLY,
         BOTTOM,
-        CLOUD
+        CLOUD,
+        PTERODACTYL
     };
 
     private Vector2 lastCactusPosition = new Vector2();
@@ -35,11 +38,15 @@ public class TileManager : MonoBehaviour
     private float safeZone = 12f;
     private float tileLength;
     private float tileHeight;
+    
     private float cactusChance = 20f;
     private float cloudChance = 10f;
+    private float pterodactylChance = 5f;
+    
     private float cloudLowerMargin = 2f;
     private float cloudUpperMargin = 7.7f;
     private float cameraOffset = 10f;
+    private float pteroSpeed = 5f;
 
     private int amnTilesOnScreen = 15;
     private int depth = 5;
@@ -89,6 +96,9 @@ public class TileManager : MonoBehaviour
             {
                 SpawnCloud();
             }
+            
+            if(spawnChance < pterodactylChance)
+                SpawnPterodactyl();
         }
     }
     void SpawnBottomTiles()
@@ -119,7 +129,7 @@ public class TileManager : MonoBehaviour
             lastCactusPosition = obstacleObject.transform.position;
         }
     }
-
+    
     void SpawnCloud()
     {
         GameObject cloudObject;
@@ -131,6 +141,19 @@ public class TileManager : MonoBehaviour
         cloudObject.transform.position = new Vector2(cameraTransform.position.x + 20f,
             yPosition);
         activeClouds.Add(cloudObject);
+    }
+    void SpawnPterodactyl()
+    {
+        GameObject pteroObject;
+        pteroObject = Instantiate(pterodactylPrefabs[RandomPrefabIndex(PrefabType.PTERODACTYL)]) as GameObject;
+        pteroObject.transform.SetParent(transform);
+
+        float yPosition = Random.Range(cloudLowerMargin, cloudUpperMargin);
+
+        pteroObject.transform.position = new Vector2(cameraTransform.position.x + 20f,
+            yPosition);
+        activePterodactyls.Add(pteroObject);
+        pteroObject.gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(-pteroSpeed, 0);
     }
 
     void DeleteTile()
@@ -155,6 +178,11 @@ public class TileManager : MonoBehaviour
         Destroy(activeClouds[0]);
         activeClouds.RemoveAt(0);
     }
+    void DeletePterodactyl()
+    {
+        Destroy(activePterodactyls[0]);
+        activePterodactyls.RemoveAt(0);
+    }
 
     private int RandomPrefabIndex(PrefabType type = PrefabType.GROUND)
     {
@@ -173,6 +201,9 @@ public class TileManager : MonoBehaviour
                 break;
             case PrefabType.CLOUD:
                 randomNumber = Random.Range(0, cloudPrefabs.Length);
+                break;
+            case PrefabType.PTERODACTYL:
+                randomNumber = Random.Range(0, pterodactylPrefabs.Length);
                 break;
         }
 
@@ -203,5 +234,8 @@ public class TileManager : MonoBehaviour
         
         if(activeClouds.Count > 15)
             DeleteCloud();
+        
+        if(activePterodactyls.Count > 5)
+            DeletePterodactyl();
     }
 }
