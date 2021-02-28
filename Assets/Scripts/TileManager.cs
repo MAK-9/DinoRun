@@ -19,6 +19,7 @@ public class TileManager : MonoBehaviour
     private List<GameObject> activeBottomTiles = new List<GameObject>();
     private List<GameObject> activeTiles = new List<GameObject>();
     private List<GameObject> activeDeadlyObstacles = new List<GameObject>();
+    private List<GameObject> activeClouds = new List<GameObject>();
 
     enum PrefabType
     {
@@ -27,15 +28,21 @@ public class TileManager : MonoBehaviour
         BOTTOM,
         CLOUD
     };
+
+    private Vector2 lastCactusPosition = new Vector2();
     
     private float spawnX = -10f;
     private float safeZone = 12f;
     private float tileLength;
     private float tileHeight;
     private float cactusChance = 20f;
-    
+    private float cloudChance = 10f;
+    private float cloudLowerMargin = 2f;
+    private float cloudUpperMargin = 7.7f;
+
     private int amnTilesOnScreen = 15;
     private int depth = 5;
+    private int cactusBreak = 5;
 
     private void Start()
     {
@@ -53,11 +60,10 @@ public class TileManager : MonoBehaviour
         WorldGenerationHandler();
     }
 
-    void SpawnTile(int prefabIndex = 0)
+    void SpawnTile(bool firstTime = false)
     {
         //this method spawns ground tiles and has a chance to spawn a deadly obstacle
-        int deadlyObstacleChance;
-        deadlyObstacleChance = Random.Range(0, 100);
+        int spawnChance = Random.Range(0, 100);
 
         GameObject tileObject;
         tileObject = Instantiate(tilePrefabs[RandomPrefabIndex()]) as GameObject;
@@ -70,12 +76,19 @@ public class TileManager : MonoBehaviour
         spawnX += tileLength;
 
         activeTiles.Add(tileObject);
-        
-        if (deadlyObstacleChance < cactusChance)
+
+        if (!firstTime)
         {
-            SpawnDeadlyObstacle(tileObject.transform.position);
+            if (spawnChance < cactusChance)
+            {
+                SpawnDeadlyObstacle(tileObject.transform.position);
+            }
+
+            if (spawnChance < cloudChance)
+            {
+                SpawnCloud();
+            }
         }
-        
     }
     void SpawnBottomTiles()
     {
@@ -91,7 +104,8 @@ public class TileManager : MonoBehaviour
     }
     void SpawnDeadlyObstacle(Vector3 groundPosition)
     {
-        if (playerTransform.position.x > 15f)
+        if (playerTransform.position.x > 15f &&
+            lastCactusPosition.x < groundPosition.x - cactusBreak * tileLength)
         {
             GameObject obstacleObject;
             obstacleObject = Instantiate(deadlyObstaclePrefabs[RandomPrefabIndex(PrefabType.DEADLY)]) as GameObject;
@@ -101,7 +115,21 @@ public class TileManager : MonoBehaviour
                 groundPosition.y + tileHeight);
 
             activeDeadlyObstacles.Add(obstacleObject);
+            lastCactusPosition = obstacleObject.transform.position;
         }
+    }
+
+    void SpawnCloud()
+    {
+        GameObject cloudObject;
+        cloudObject = Instantiate(cloudPrefabs[RandomPrefabIndex(PrefabType.CLOUD)]) as GameObject;
+        cloudObject.transform.SetParent(transform);
+
+        float yPosition = Random.Range(cloudLowerMargin, cloudUpperMargin);
+
+        cloudObject.transform.position = new Vector2(playerTransform.position.x + 20f,
+            yPosition);
+        activeClouds.Add(cloudObject);
     }
 
     void DeleteTile()
@@ -119,6 +147,12 @@ public class TileManager : MonoBehaviour
     {
         Destroy(activeDeadlyObstacles[0]);
         activeDeadlyObstacles.RemoveAt(0);
+    }
+
+    void DeleteCloud()
+    {
+        Destroy(activeClouds[0]);
+        activeClouds.RemoveAt(0);
     }
 
     private int RandomPrefabIndex(PrefabType type = PrefabType.GROUND)
@@ -148,7 +182,7 @@ public class TileManager : MonoBehaviour
     {
         for (int i = 0; i < amnTilesOnScreen; i++)
         {
-            SpawnTile();
+            SpawnTile(true);
         }
     }
 
@@ -165,5 +199,8 @@ public class TileManager : MonoBehaviour
         {
             DeleteObstacle();
         }
+        
+        if(activeClouds.Count > 15)
+            DeleteCloud();
     }
 }
