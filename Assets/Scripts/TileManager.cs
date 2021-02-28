@@ -14,7 +14,7 @@ public class TileManager : MonoBehaviour
     public GameObject[] deadlyObstaclePrefabs;
     public GameObject[] cloudPrefabs;
 
-    private Transform playerTransform;
+    private Transform cameraTransform;
 
     private List<GameObject> activeBottomTiles = new List<GameObject>();
     private List<GameObject> activeTiles = new List<GameObject>();
@@ -39,6 +39,7 @@ public class TileManager : MonoBehaviour
     private float cloudChance = 10f;
     private float cloudLowerMargin = 2f;
     private float cloudUpperMargin = 7.7f;
+    private float cameraOffset = 10f;
 
     private int amnTilesOnScreen = 15;
     private int depth = 5;
@@ -46,7 +47,7 @@ public class TileManager : MonoBehaviour
 
     private void Start()
     {
-        playerTransform = GameObject.FindWithTag("Player").transform;
+        cameraTransform = GameObject.FindWithTag("MainCamera").transform;
         tileLength = tilePrefabs[0].gameObject.GetComponent<BoxCollider2D>().size.x *
                      tilePrefabs[0].gameObject.transform.localScale.x;
         tileHeight = tilePrefabs[0].gameObject.GetComponent<BoxCollider2D>().size.y *
@@ -104,7 +105,7 @@ public class TileManager : MonoBehaviour
     }
     void SpawnDeadlyObstacle(Vector3 groundPosition)
     {
-        if (playerTransform.position.x > 15f &&
+        if (cameraTransform.position.x > 15f &&
             lastCactusPosition.x < groundPosition.x - cactusBreak * tileLength)
         {
             GameObject obstacleObject;
@@ -127,7 +128,7 @@ public class TileManager : MonoBehaviour
 
         float yPosition = Random.Range(cloudLowerMargin, cloudUpperMargin);
 
-        cloudObject.transform.position = new Vector2(playerTransform.position.x + 20f,
+        cloudObject.transform.position = new Vector2(cameraTransform.position.x + 20f,
             yPosition);
         activeClouds.Add(cloudObject);
     }
@@ -189,7 +190,7 @@ public class TileManager : MonoBehaviour
     void WorldGenerationHandler()
     {
         // this function spawns and deletes tiles as the player moves
-        if (playerTransform.position.x - safeZone> spawnX - amnTilesOnScreen * tileLength)
+        if (cameraTransform.position.x - safeZone> spawnX - amnTilesOnScreen * tileLength)
         {
             SpawnTile();
             DeleteTile();
