@@ -22,6 +22,7 @@ public class PlayerController : MonoBehaviour
     
     private Rigidbody2D rb;
     private new CircleCollider2D collider2D;
+    private BoxCollider2D boxCollider2D;
     private Animator animator;
 
     enum AbilityType
@@ -35,6 +36,8 @@ public class PlayerController : MonoBehaviour
     {
         rb = gameObject.GetComponent<Rigidbody2D>();
         collider2D = gameObject.GetComponent<CircleCollider2D>();
+        boxCollider2D = gameObject.GetComponent<BoxCollider2D>();
+        boxCollider2D.enabled = false;
         animator = gameObject.GetComponent<Animator>();
     }
 
@@ -108,8 +111,10 @@ public class PlayerController : MonoBehaviour
         dashReady = false;
         
         animator.SetBool("Dash",true);
+        SwapColliders();
         yield return new WaitForSeconds(dashDuration);
         animator.SetBool("Dash",false);
+        SwapColliders();
         
         
         speed -= dashStrength;
@@ -125,6 +130,12 @@ public class PlayerController : MonoBehaviour
                 dashReady = true;
                 break;
         }
+    }
+
+    void SwapColliders()
+    {
+        collider2D.enabled = !collider2D.enabled;
+        boxCollider2D.enabled = !boxCollider2D.enabled;
     }
 
     public void Die()

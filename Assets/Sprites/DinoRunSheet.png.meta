@@ -1,25 +1,25 @@
 fileFormatVersion: 2
-guid: 702eb27b43404b648a6bf5eca2376d95
+guid: bbb92214d759e534f8a5e1c1261e3f35
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -5528015391187533474
-    second: DashAnimation_0
+      213: 5886639433353387344
+    second: DinoRunSheet_0
   - first:
-      213: 8939403370471872197
-    second: DashAnimation_1
+      213: 7312397468334025829
+    second: DinoRunSheet_1
   - first:
-      213: 141953626526389213
-    second: DashAnimation_2
+      213: -8359327410928511866
+    second: DinoRunSheet_2
   - first:
-      213: -2856608717006881201
-    second: DashAnimation_3
+      213: 759267299236936595
+    second: DinoRunSheet_3
   - first:
-      213: 1036634080826327146
-    second: DashAnimation_4
+      213: -5111320310617387577
+    second: DinoRunSheet_4
   - first:
-      213: -4048894841267837041
-    second: DashAnimation_5
+      213: -6708755440180027146
+    second: DinoRunSheet_5
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -133,127 +133,127 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: DashAnimation_0
+      name: DinoRunSheet_0
       rect:
         serializedVersion: 2
-        x: 4
+        x: 0
         y: 0
-        width: 26
+        width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e5100675a4b8843b0800000000000000
-      internalID: -5528015391187533474
+      spriteID: 05dd5d9306b81b150800000000000000
+      internalID: 5886639433353387344
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: DashAnimation_1
+      name: DinoRunSheet_1
       rect:
         serializedVersion: 2
-        x: 35
+        x: 17
         y: 0
-        width: 24
+        width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5c6d7e0a0042f0c70800000000000000
-      internalID: 8939403370471872197
+      spriteID: 56ce38431cada7560800000000000000
+      internalID: 7312397468334025829
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: DashAnimation_2
+      name: DinoRunSheet_2
       rect:
         serializedVersion: 2
-        x: 66
+        x: 34
         y: 0
-        width: 24
+        width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: dd31fab321258f100800000000000000
-      internalID: 141953626526389213
+      spriteID: 6849b666204bdfb80800000000000000
+      internalID: -8359327410928511866
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: DashAnimation_3
+      name: DinoRunSheet_3
       rect:
         serializedVersion: 2
-        x: 97
+        x: 51
         y: 0
-        width: 24
+        width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f4e3580c1894b58d0800000000000000
-      internalID: -2856608717006881201
+      spriteID: 39b769cf595798a00800000000000000
+      internalID: 759267299236936595
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: DashAnimation_4
+      name: DinoRunSheet_4
       rect:
         serializedVersion: 2
-        x: 128
+        x: 68
         y: 0
-        width: 24
+        width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a6087b5443dd26e00800000000000000
-      internalID: 1036634080826327146
+      spriteID: 7cd49682241f019b0800000000000000
+      internalID: -5111320310617387577
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: DashAnimation_5
+      name: DinoRunSheet_5
       rect:
         serializedVersion: 2
-        x: 155
+        x: 85
         y: 0
-        width: 28
+        width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f87a155089f6fc7c0800000000000000
-      internalID: -4048894841267837041
+      spriteID: 6f0a91fb876b5e2a0800000000000000
+      internalID: -6708755440180027146
       vertices: []
       indices: 
       edges: []
