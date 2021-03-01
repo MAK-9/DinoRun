@@ -677,7 +677,7 @@ MonoBehaviour:
   groundLayerMask:
     serializedVersion: 2
     m_Bits: 64
-  speed: 200
+  speed: 300
   jumpStrength: 10
 --- !u!58 &1938841763
 CircleCollider2D:

@@ -19,6 +19,7 @@ public class PlayerController : MonoBehaviour
 
     private bool dead = false;
     private bool dashReady = true;
+    private bool immune = false;
     
     private Rigidbody2D rb;
     private new CircleCollider2D collider2D;
@@ -109,14 +110,15 @@ public class PlayerController : MonoBehaviour
     {
         speed += dashStrength;
         dashReady = false;
+        immune = true;
         
         animator.SetBool("Dash",true);
         SwapColliders();
         yield return new WaitForSeconds(dashDuration);
         animator.SetBool("Dash",false);
         SwapColliders();
-        
-        
+
+        immune = false;
         speed -= dashStrength;
         StartCoroutine(AbilityCooldown(AbilityType.DASH));
     }
@@ -138,9 +140,10 @@ public class PlayerController : MonoBehaviour
         boxCollider2D.enabled = !boxCollider2D.enabled;
     }
 
-    public void Die()
+    public void Die(bool avoidable = false)
     {
-        if (!dead)
+        if (!dead && !immune ||
+            !dead && !avoidable)
         {
             Debug.Log("Game Over!");
             //Time.timeScale = 0f;
