@@ -11,11 +11,11 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private LayerMask groundLayerMask;
     public float speed = 100f;
     private float dashDuration = 0.5f;
-    private float dashStrength = 150f;
+    private float dashStrength = 300f;
     private float horizontalMove=0f;
     public float jumpStrength = 10f;
 
-    private float dashCooldown = 5f;
+    private float dashCooldown = 2f;
 
     private bool dead = false;
     private bool dashReady = true;
@@ -106,7 +106,12 @@ public class PlayerController : MonoBehaviour
     {
         speed += dashStrength;
         dashReady = false;
+        
+        animator.SetBool("Dash",true);
         yield return new WaitForSeconds(dashDuration);
+        animator.SetBool("Dash",false);
+        
+        
         speed -= dashStrength;
         StartCoroutine(AbilityCooldown(AbilityType.DASH));
     }
