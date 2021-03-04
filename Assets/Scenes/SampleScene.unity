@@ -235,7 +235,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519420028}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.7348993, y: 1.6599998, z: -10}
+  m_LocalPosition: {x: 3.734746, y: 1.6599998, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -353,7 +353,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1190972897}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 3.7348993, y: 1.6599998, z: -10}
+  m_LocalPosition: {x: 3.734746, y: 1.6599998, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1017713195}
@@ -656,11 +656,11 @@ Rigidbody2D:
   m_Mass: 5
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 2
+  m_GravityScale: 4
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 4
 --- !u!114 &1938841762
 MonoBehaviour:
@@ -678,7 +678,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   speed: 300
-  jumpStrength: 12
+  jumpStrength: 15
 --- !u!58 &1938841763
 CircleCollider2D:
   m_ObjectHideFlags: 0
