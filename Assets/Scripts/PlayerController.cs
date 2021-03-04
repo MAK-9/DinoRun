@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Debug = UnityEngine.Debug;
@@ -14,11 +15,15 @@ public class PlayerController : MonoBehaviour
     private float dashStrength = 300f;
     private float horizontalMove=0f;
     public float jumpStrength = 10f;
+    
+    // dash text ready
+    public TMP_Text dashReadyText;
 
     private float dashCooldown = 2f;
 
     private bool dead = false;
     private bool dashReady = true;
+    private bool immune = false;
     
     private Rigidbody2D rb;
     private new CircleCollider2D collider2D;
@@ -67,6 +72,16 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
+        //TODO make a proper dash indicator
+        if (dashReady)
+        {
+            SwitchDashText(true);
+        }
+        else
+        {
+            SwitchDashText(false);
+        }
+        
         if(!dead)
             Move();
     }
@@ -109,16 +124,26 @@ public class PlayerController : MonoBehaviour
     {
         speed += dashStrength;
         dashReady = false;
+        immune = true;
         
         animator.SetBool("Dash",true);
         SwapColliders();
         yield return new WaitForSeconds(dashDuration);
         animator.SetBool("Dash",false);
         SwapColliders();
-        
-        
+
+        immune = false;
         speed -= dashStrength;
         StartCoroutine(AbilityCooldown(AbilityType.DASH));
+    }
+
+    void SwitchDashText(bool isReady)
+    {
+        if (isReady)
+        {
+            dashReadyText.color=Color.green;
+        }
+        else dashReadyText.color = Color.red;
     }
 
     IEnumerator AbilityCooldown(AbilityType type = AbilityType.DASH)
@@ -138,9 +163,10 @@ public class PlayerController : MonoBehaviour
         boxCollider2D.enabled = !boxCollider2D.enabled;
     }
 
-    public void Die()
+    public void Die(bool avoidable = false)
     {
-        if (!dead)
+        if (!dead && !immune ||
+            !dead && !avoidable)
         {
             Debug.Log("Game Over!");
             //Time.timeScale = 0f;

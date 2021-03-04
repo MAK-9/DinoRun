@@ -36,7 +36,8 @@ public class TileManager : MonoBehaviour
     
     private float spawnX = -10f;
     private float safeZone = 12f;
-    private float tileLength;
+
+    public float tileLength { get; private set; }
     private float tileHeight;
     
     private float cactusChance = 20f;
