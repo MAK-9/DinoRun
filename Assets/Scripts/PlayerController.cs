@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Debug = UnityEngine.Debug;
@@ -14,6 +15,9 @@ public class PlayerController : MonoBehaviour
     private float dashStrength = 300f;
     private float horizontalMove=0f;
     public float jumpStrength = 10f;
+    
+    // dash text ready
+    public TMP_Text dashReadyText;
 
     private float dashCooldown = 2f;
 
@@ -68,6 +72,16 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
+        //TODO make a proper dash indicator
+        if (dashReady)
+        {
+            SwitchDashText(true);
+        }
+        else
+        {
+            SwitchDashText(false);
+        }
+        
         if(!dead)
             Move();
     }
@@ -121,6 +135,15 @@ public class PlayerController : MonoBehaviour
         immune = false;
         speed -= dashStrength;
         StartCoroutine(AbilityCooldown(AbilityType.DASH));
+    }
+
+    void SwitchDashText(bool isReady)
+    {
+        if (isReady)
+        {
+            dashReadyText.color=Color.green;
+        }
+        else dashReadyText.color = Color.red;
     }
 
     IEnumerator AbilityCooldown(AbilityType type = AbilityType.DASH)
