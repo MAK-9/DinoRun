@@ -30,6 +30,8 @@ public class PlayerController : MonoBehaviour
     private BoxCollider2D boxCollider2D;
     private Animator animator;
 
+    public GameController gameController;
+
     enum AbilityType
     {
         DASH
@@ -168,13 +170,16 @@ public class PlayerController : MonoBehaviour
         if (!dead && !immune ||
             !dead && !avoidable)
         {
-            Debug.Log("Game Over!");
+            //Debug.Log("Game Over!");
             //Time.timeScale = 0f;
 
             dead = true;
             animator.SetTrigger("Hurt");
             Jump();
             animator.SetTrigger("Dead");
+            
+            // tell the game controller to toggle gameOverPanel
+            gameController.ToggleGameOverPanel();
         }
         
     }

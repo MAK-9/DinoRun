@@ -11,6 +11,7 @@ public class GameController : MonoBehaviour
     private bool paused = false;
 
     public GameObject tileObject;
+    public GameObject gameOverPanel;
 
     public Transform playerTransform;
 
@@ -67,5 +68,15 @@ public class GameController : MonoBehaviour
     {
         Time.timeScale = 1f;
         paused = false;
+    }
+
+    void RestartRun()
+    {
+        ToggleGameOverPanel(false);
+    }
+
+    public void ToggleGameOverPanel(bool activate = true)
+    {
+        gameOverPanel.SetActive(activate);
     }
 }
