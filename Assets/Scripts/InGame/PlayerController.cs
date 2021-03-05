@@ -52,12 +52,12 @@ public class PlayerController : MonoBehaviour
         horizontalMove = Input.GetAxisRaw("Horizontal");
         
         //jump
-        if ((Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.Space)) && IsGrounded() && !dead)
+        if ((Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.Space)) && IsGrounded() && !dead)
         {
             Jump();
         }
         //dash
-        if (Input.GetKeyDown(KeyCode.RightArrow) && dashReady)
+        if (Input.GetKey(KeyCode.RightArrow) && dashReady)
         {
             StartCoroutine(Dash());
         }
