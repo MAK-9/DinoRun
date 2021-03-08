@@ -9,12 +9,17 @@ public class GameController : MonoBehaviour
 {
     private int score;
     private float tileLength;
+    private float lastScoreSpeedIncrease = 0f;
     private bool paused = false;
+
+    public float speedIncrement = 1f;
 
     public GameObject tileObject;
     public GameObject gameOverPanel;
 
     public Transform playerTransform;
+
+    public PlayerController playerController;
 
     public TMP_Text scoreText;
     
@@ -29,6 +34,12 @@ public class GameController : MonoBehaviour
         {
             //update score
             UpdateScore();
+
+            if (score % 20 == 0 && score > lastScoreSpeedIncrease)
+            {
+                playerController.IncreaseSpeed(speedIncrement);
+                lastScoreSpeedIncrease = speedIncrement;
+            }
         }
     }
 
@@ -58,6 +69,7 @@ public class GameController : MonoBehaviour
         
         return length;
     }
+    
     
     void PauseGame()
     {

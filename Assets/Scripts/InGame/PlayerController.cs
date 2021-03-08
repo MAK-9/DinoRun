@@ -10,7 +10,7 @@ using Debug = UnityEngine.Debug;
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] private LayerMask groundLayerMask;
-    public float speed = 100f;
+    public float speed = 300f;
     private float dashDuration = 0.5f;
     private float dashStrength = 300f;
     private float horizontalMove=0f;
@@ -165,6 +165,10 @@ public class PlayerController : MonoBehaviour
         boxCollider2D.enabled = !boxCollider2D.enabled;
     }
 
+    public void IncreaseSpeed(float amt)
+    {
+        speed += amt;
+    }
     public void Die(bool avoidable = false)
     {
         if (!dead && !immune ||
