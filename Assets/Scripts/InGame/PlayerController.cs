@@ -70,6 +70,8 @@ public class PlayerController : MonoBehaviour
         }
         if(Input.GetKeyDown(KeyCode.Escape))
             Application.Quit();
+
+        HandleTouchInput();
     }
 
     private void FixedUpdate()
@@ -86,6 +88,20 @@ public class PlayerController : MonoBehaviour
         
         if(!dead)
             Move();
+    }
+
+    void HandleTouchInput()
+    {
+        foreach (Touch touch in Input.touches) {
+            if((touch.position.x <= Screen.width / 2) && (touch.phase == TouchPhase.Stationary) && IsGrounded() && !dead) {
+                Jump();
+            }
+  
+            if((touch.position.x > Screen.width / 2)&& (touch.position.y < Screen.height * 3/4) && (touch.phase == TouchPhase.Began) && dashReady && !dead)
+            {
+                StartCoroutine(Dash());
+            }
+        }
     }
 
     void Move()
