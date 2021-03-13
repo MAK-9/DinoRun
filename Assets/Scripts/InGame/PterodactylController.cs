@@ -24,6 +24,7 @@ public class PterodactylController : MonoBehaviour
 
     void Die()
     {
+        this.gameObject.GetComponent<BoxCollider2D>().enabled = false;
         rb.velocity = new Vector2(10f, -15f);
         StartCoroutine(Destroy(1f));
     }

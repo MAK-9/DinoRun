@@ -200,6 +200,8 @@ public class PlayerController : MonoBehaviour
             
             // tell the game controller to toggle gameOverPanel
             gameController.ToggleGameOverPanel();
+            gameController.UpdateHighScore();
+            gameController.SaveGame();
         }
         
     }

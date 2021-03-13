@@ -12,6 +12,7 @@ public class GameController : MonoBehaviour
     private float lastScoreSpeedIncrease = 0f;
     private bool paused = false;
 
+    public int highScore;
     public float speedIncrement = 1f;
 
     public GameObject tileObject;
@@ -20,13 +21,16 @@ public class GameController : MonoBehaviour
     public Transform playerTransform;
 
     public PlayerController playerController;
+    public TileManager tileManager;
 
     public TMP_Text scoreText;
+    public TMP_Text highScoreText;
     
     private void Awake()
     {
         tileLength = GetTileLength();
         scoreText.color = Color.green;
+        LoadGame();
     }
 
     private void FixedUpdate()
@@ -39,6 +43,7 @@ public class GameController : MonoBehaviour
             {
                 playerController.IncreaseSpeed(speedIncrement);
                 lastScoreSpeedIncrease = speedIncrement;
+                tileManager.IncreaseCactusBreak();
             }
         }
     }
@@ -61,6 +66,15 @@ public class GameController : MonoBehaviour
         score = (int) playerTransform.position.x / (int) tileLength;
         scoreText.SetText(score.ToString());
     }
+
+    public void UpdateHighScore()
+    {
+        if (highScore < score)
+            highScore = score;
+        
+        highScoreText.SetText("HIGHSCORE \n" + highScore.ToString());
+    }
+    
 
     int GetTileLength()
     {
@@ -92,5 +106,17 @@ public class GameController : MonoBehaviour
     public void ToggleGameOverPanel(bool activate = true)
     {
         gameOverPanel.SetActive(activate);
+    }
+
+    public void SaveGame()
+    {
+        SaveSystem.SaveData(this);
+    }
+
+    private void LoadGame()
+    {
+        DataSaver data = SaveSystem.LoadData();
+
+        highScore = data.highScore;
     }
 }

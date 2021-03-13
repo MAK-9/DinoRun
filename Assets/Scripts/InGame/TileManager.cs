@@ -23,6 +23,8 @@ public class TileManager : MonoBehaviour
     private List<GameObject> activeClouds = new List<GameObject>();
     private List<GameObject> activePterodactyls = new List<GameObject>();
 
+    public PlayerController playerController;
+
     enum PrefabType
     {
         GROUND,
@@ -208,6 +210,11 @@ public class TileManager : MonoBehaviour
         }
 
         return randomNumber;
+    }
+
+    public void IncreaseCactusBreak()
+    {
+        cactusBreak = (int)playerController.speed / 60;
     }
 
     void SpawnForTheFirstTime()
