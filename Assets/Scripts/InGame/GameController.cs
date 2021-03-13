@@ -25,11 +25,13 @@ public class GameController : MonoBehaviour
 
     public TMP_Text scoreText;
     public TMP_Text highScoreText;
+    public TMP_Text scorePanelText;
     
-    private void Awake()
+    private void Start()
     {
         tileLength = GetTileLength();
         scoreText.color = Color.green;
+        scoreText.SetText("0");
         LoadGame();
     }
 
@@ -63,7 +65,8 @@ public class GameController : MonoBehaviour
     void UpdateScore()
     {
         //get & set score
-        score = (int) playerTransform.position.x / (int) tileLength;
+        if(!playerController.dead)
+            score = (int) playerTransform.position.x / (int) tileLength;
         scoreText.SetText(score.ToString());
     }
 
@@ -105,6 +108,8 @@ public class GameController : MonoBehaviour
 
     public void ToggleGameOverPanel(bool activate = true)
     {
+        if(activate)
+            scorePanelText.SetText("SCORE \n" + scoreText.text);
         gameOverPanel.SetActive(activate);
     }
 

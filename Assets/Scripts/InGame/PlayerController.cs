@@ -21,7 +21,7 @@ public class PlayerController : MonoBehaviour
 
     private float dashCooldown = 2f;
 
-    private bool dead = false;
+    public bool dead = false;
     private bool dashReady = true;
     private bool immune = false;
     
