@@ -115,6 +115,9 @@ public class PlayerController : MonoBehaviour
         RaycastHit2D raycastHit =  Physics2D.Raycast(collider2D.bounds.center, Vector2.down,
             collider2D.bounds.extents.y + extraHeightText,
             groundLayerMask);
+        RaycastHit2D raycastHit2 = Physics2D.Raycast(new Vector2(collider2D.bounds.center.x + collider2D.radius,collider2D.bounds.center.y), Vector2.down,
+            collider2D.bounds.extents.y + extraHeightText,
+            groundLayerMask);
 
         /*
         Color rayColor;
@@ -128,8 +131,21 @@ public class PlayerController : MonoBehaviour
         Debug.Log(raycastHit);
         Debug.DrawRay(collider2D.bounds.center,Vector2.down * 
                                                   (collider2D.bounds.extents.y + extraHeightText),rayColor);
+        
+        if (raycastHit2.collider != null)
+        {
+            rayColor = Color.green;
+        }
+        else 
+            rayColor = Color.red;
+        
+        Debug.Log(raycastHit2);
+        Debug.DrawRay(new Vector2(collider2D.bounds.center.x + collider2D.bounds.extents.x,collider2D.bounds.center.y),Vector2.down * 
+                                                (collider2D.bounds.extents.y + extraHeightText),rayColor);
         */
-        return raycastHit.collider != null;
+        
+        //return raycastHit.collider != null;
+        return (raycastHit.collider != null || raycastHit2.collider != null);
     }
 
     void Jump()
