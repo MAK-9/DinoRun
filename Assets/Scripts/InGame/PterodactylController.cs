@@ -18,14 +18,21 @@ public class PterodactylController : MonoBehaviour
         if (other.tag == "Player")
         {
             playerController.Die(true);
-            Die();
+            Die(other);
         }
     }
 
-    void Die()
+    void Die(Collider2D other)
     {
         this.gameObject.GetComponent<BoxCollider2D>().enabled = false;
-        rb.velocity = new Vector2(10f, -15f);
+        if (other.transform.position.y > this.transform.position.y)
+        {
+            rb.velocity = new Vector2(10f, -15f);
+        }
+        else
+        {
+            rb.velocity = new Vector2(10f, 15f);
+        }
         StartCoroutine(Destroy(1f));
     }
 
