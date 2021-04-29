@@ -9,6 +9,8 @@ using Debug = UnityEngine.Debug;
 
 public class PlayerController : MonoBehaviour
 {
+    //private Dash dash;
+    public DashMeter dashMeter;
     [SerializeField] private LayerMask groundLayerMask;
     public float speed = 300f;
     private float dashDuration = 0.5f;
@@ -59,7 +61,7 @@ public class PlayerController : MonoBehaviour
             Jump();
         }
         //dash
-        if (Input.GetKey(KeyCode.RightArrow) && dashReady)
+        if (Input.GetKey(KeyCode.RightArrow))
         {
             StartCoroutine(Dash());
         }
@@ -76,16 +78,6 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        //TODO make a proper dash indicator
-        if (dashReady)
-        {
-            SwitchDashText(true);
-        }
-        else
-        {
-            SwitchDashText(false);
-        }
-        
         if(!dead)
             Move();
     }
@@ -97,7 +89,7 @@ public class PlayerController : MonoBehaviour
                 Jump();
             }
   
-            if((touch.position.x > Screen.width / 2)&& (touch.position.y < Screen.height * 3/4) && (touch.phase == TouchPhase.Began) && dashReady && !dead)
+            if((touch.position.x > Screen.width / 2)&& (touch.position.y < Screen.height * 3/4) && (touch.phase == TouchPhase.Began) && !dead)
             {
                 StartCoroutine(Dash());
             }
@@ -156,6 +148,12 @@ public class PlayerController : MonoBehaviour
 
     IEnumerator Dash()
     {
+        if (!dashMeter.TryToDash())
+        {
+            Debug.Log("dash quit");
+            yield break;
+        }
+        
         speed += dashStrength;
         dashReady = false;
         immune = true;
@@ -168,7 +166,7 @@ public class PlayerController : MonoBehaviour
 
         immune = false;
         speed -= dashStrength;
-        StartCoroutine(AbilityCooldown(AbilityType.DASH));
+        //StartCoroutine(AbilityCooldown(AbilityType.DASH));
     }
 
     void SwitchDashText(bool isReady)
@@ -180,6 +178,7 @@ public class PlayerController : MonoBehaviour
         else dashReadyText.color = Color.red;
     }
 
+    //legacy function
     IEnumerator AbilityCooldown(AbilityType type = AbilityType.DASH)
     {
         switch (type)
