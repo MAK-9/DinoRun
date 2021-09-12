@@ -3,7 +3,7 @@ This game is inspired by google chrome dino game.
 All assets made by me.
 
 # How to play
- - Press left side of the screen to jump
+ - Press the left side of the screen to jump
  - Press the right side of the screen to perform a dash attack
  - Avoid cactuses and kill pterodactyls
  - Survive as long as you can!
