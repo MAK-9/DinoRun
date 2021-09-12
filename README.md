@@ -1,5 +1,5 @@
 # DinoRun
-This game is inspired by google chrome dino game.
+This an android game is inspired by google chrome dino game.
 All assets made by me.
 
 # How to play
